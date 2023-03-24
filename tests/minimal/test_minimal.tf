@@ -45,7 +45,7 @@ resource "test_assertions" "l3extRouteTagPol" {
   equal "tag" {
     description = "tag"
     got         = data.aci_rest_managed.l3extRouteTagPol.content.tag
-    want        = 4294967295
+    want        = "4294967295"
   }
 
   equal "descr" {

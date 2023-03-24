@@ -25,7 +25,7 @@ module "main" {
 
   name        = "TAG_FULL"
   tenant      = aci_rest_managed.fvTenant.content.name
-  tag         = 13456
+  tag         = 12345
   description = "My Route Tag"
 }
 
@@ -47,7 +47,7 @@ resource "test_assertions" "l3extRouteTagPol" {
   equal "tag" {
     description = "tag"
     got         = data.aci_rest_managed.l3extRouteTagPol.content.tag
-    want        = 12345
+    want        = "12345"
   }
 
   equal "descr" {
