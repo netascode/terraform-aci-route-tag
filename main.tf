@@ -1,9 +1,9 @@
-resource "aci_rest_managed" "fvTenant" {
-  dn         = "uni/tn-${var.name}"
+resource "aci_rest_managed" "l3extRouteTagPol" {
+  dn         = "uni/tn-${var.tenant}/rttag-${var.name}"
   class_name = "fvTenant"
   content = {
-    name      = var.name
-    nameAlias = var.alias
-    descr     = var.description
+    descr = var.description
+    name  = var.name
+    tag   = var.tag
   }
 }
