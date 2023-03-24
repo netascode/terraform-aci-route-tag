@@ -11,7 +11,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    concurrency: testing_environment
+    # concurrency: testing_environment
     steps:
       - name: Checkout
         uses: actions/checkout@v3
