@@ -44,7 +44,9 @@ jobs:
           ACI_USERNAME: ${{ secrets.ACI_USERNAME }}
           ACI_PASSWORD: ${{ secrets.ACI_PASSWORD }}
           ACI_URL: ${{ secrets.ACI_URL }}
-        run: terraform test -junit-xml=test-report.xml
+        run: |
+          terraform version
+          terraform test -junit-xml=test-report.xml
 
       - name: Publish Integration Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
