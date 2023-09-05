@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0.0"
+  required_version = ">= 1.3.0"
 
   required_providers {
     test = {
@@ -13,36 +13,44 @@ terraform {
   }
 }
 
+
+resource "aci_rest_managed" "fvTenant" {
+  dn         = "uni/tn-TF"
+  class_name = "fvTenant"
+}
+
+
 module "main" {
   source = "../.."
 
-  name = "ABC"
+  name   = "TAG_MINIMAL"
+  tenant = aci_rest_managed.fvTenant.content.name
 }
 
-data "aci_rest_managed" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest_managed" "l3extRouteTagPol" {
+  dn = "${aci_rest_managed.fvTenant.id}/rttag-TAG_MINIMAL"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "l3extRouteTagPol" {
+  component = "l3extRouteTagPol"
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest_managed.fvTenant.content.name
-    want        = "ABC"
+    got         = data.aci_rest_managed.l3extRouteTagPol.content.name
+    want        = "TAG_MINIMAL"
   }
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest_managed.fvTenant.content.nameAlias
-    want        = ""
+  equal "tag" {
+    description = "tag"
+    got         = data.aci_rest_managed.l3extRouteTagPol.content.tag
+    want        = "4294967295"
   }
 
   equal "descr" {
     description = "descr"
-    got         = data.aci_rest_managed.fvTenant.content.descr
+    got         = data.aci_rest_managed.l3extRouteTagPol.content.descr
     want        = ""
   }
 }
