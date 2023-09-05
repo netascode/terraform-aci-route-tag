@@ -13,11 +13,11 @@ Note that this example will create resources. Resources can be destroyed with `t
 
 ```hcl
 module "aci_route_tag_policy" {
-  source  = "netascode/route_tag_policy/aci"
-  version = ">= 0.0.1"
+  source  = "netascode/route-tag-policy/aci"
+  version = ">= 0.1.0"
 
-  name        = "TAG1"
   tenant      = "TEN1"
+  name        = "TAG1"
   description = "My Tag"
   tag         = 12345
 }
